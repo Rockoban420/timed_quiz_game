@@ -1,20 +1,23 @@
 var timer = 60;
-var game = true;
-var progress = 0;
+var game = false;
+var progress = -1;
 var timerEl = document.getElementById("timer");
 var questionBox = document.getElementById("q");
 var button1 = document.getElementById("a1");
 var button2 = document.getElementById("a2");
 var button3 = document.getElementById("a3");
 var button4 = document.getElementById("a4");
+const beginButton = document.getElementById("startButton");
+var ulEl = document.getElementById("list");
+ulEl.setAttribute("style", "display: none;");
 const Questions = [
     {
-    question: "what is your power level0?",
-    answer1: "im gay0",
-    answer2: "im supper0",
-    answer3: "lol0",
-    answer4: "over 90000",
-    correctAnswer: "over 90000"
+    question: "Commonly used data types do NOT include:",
+    answer1: "strings",
+    answer2: "booleans",
+    answer3: "alerts",
+    answer4: "numbers",
+    correctAnswer: "alerts"
 },{
     question: "what is your power level1?",
     answer1: "im gay1",
@@ -44,51 +47,64 @@ function setTime() {
   var timerInterval = setInterval(function() {
     timer--;
     timerEl.textContent = timer + " seconds left till gameover.";
+    ulEl.setAttribute("style", "display: ");
+    if (progress===-1){
+        timer=60;
+        questionBox.textContent = "press to start";
+        beginButton.innerText = "start";
+        ulEl.setAttribute("style", "display: none;");
+    }
     if (progress===0){
         questionBox.textContent = Questions[0].question;
-        button1.innerHTML = Questions[0].answer1;
-        button2.innerHTML = Questions[0].answer2;
-        button3.innerHTML = Questions[0].answer3;
-        button4.innerHTML = Questions[0].answer4;
+        button1.innerText = Questions[0].answer1;
+        button2.innerText = Questions[0].answer2;
+        button3.innerText = Questions[0].answer3;
+        button4.innerText = Questions[0].answer4;
     }
     if (progress===1){
         questionBox.textContent = Questions[1].question;
-        button1.innerHTML = Questions[1].answer1;
-        button2.innerHTML = Questions[1].answer2;
-        button3.innerHTML = Questions[1].answer3;
-        button4.innerHTML = Questions[1].answer4;
+        button1.innerText = Questions[1].answer1;
+        button2.innerText = Questions[1].answer2;
+        button3.innerText = Questions[1].answer3;
+        button4.innerText = Questions[1].answer4;
     }
     if (progress===2){
         questionBox.textContent = Questions[2].question;
-        button1.innerHTML = Questions[2].answer1;
-        button2.innerHTML = Questions[2].answer2;
-        button3.innerHTML = Questions[2].answer3;
-        button4.innerHTML = Questions[2].answer4;
+        button1.innerText = Questions[2].answer1;
+        button2.innerText = Questions[2].answer2;
+        button3.innerText = Questions[2].answer3;
+        button4.innerText = Questions[2].answer4;
     }
     if (progress===3){
         questionBox.textContent = Questions[3].question;
-        button1.innerHTML = Questions[3].answer1;
-        button2.innerHTML = Questions[3].answer2;
-        button3.innerHTML = Questions[3].answer3;
-        button4.innerHTML = Questions[3].answer4;
+        button1.innerText = Questions[3].answer1;
+        button2.innerText = Questions[3].answer2;
+        button3.innerText = Questions[3].answer3;
+        button4.innerText = Questions[3].answer4;
     }
 
     if(timer <= 0) {
         questionBox.textContent = "You lost";
         game = false;
         clearInterval(timerInterval);
+        ulEl.setAttribute("style", "display: none;");
         timerEl.textContent = "";
-        button1.innerHTML = "";
-        button2.innerHTML = "";
-        button3.innerHTML = "";
-        button4.innerHTML = "";
+        button1.innerText = "";
+        button2.innerText = "";
+        button3.innerText = "";
+        button4.innerText= "";
     }
   }, 1000);
 };
 
 function checkAnswer (event){
+    if (progress===-1){
+        progress++;
+        beginButton.setAttribute("style", "display: none;")
+    }
+    else {
     if (progress===0){
-    if (event.currentTarget.innerHTML=== Questions[0].correctAnswer){
+    if (event.currentTarget.innerText=== Questions[0].correctAnswer){
         progress++;
         timer +=15;
     }
@@ -98,7 +114,7 @@ function checkAnswer (event){
     }
     }
     else if (progress===1){
-        if (event.currentTarget.innerHTML=== Questions[1].correctAnswer){
+        if (event.currentTarget.innerText=== Questions[1].correctAnswer){
             progress++;
             timer +=15;
         }
@@ -108,7 +124,7 @@ function checkAnswer (event){
         }
     }
     else if (progress===2){
-        if (event.currentTarget.innerHTML=== Questions[2].correctAnswer){
+        if (event.currentTarget.innerText=== Questions[2].correctAnswer){
             progress++;
             timer +=15;
         }
@@ -118,7 +134,7 @@ function checkAnswer (event){
         }
     }
     else if (progress===3){
-        if (event.currentTarget.innerHTML=== Questions[3].correctAnswer){
+        if (event.currentTarget.innerText=== Questions[3].correctAnswer){
             progress++;
             timer +=15;
         }
@@ -127,11 +143,13 @@ function checkAnswer (event){
             timer -=15;
         }
     }
+}
 };
 
-setTime();
+setTime(game);
 
 button1.addEventListener("click", checkAnswer);
 button2.addEventListener("click", checkAnswer);
 button3.addEventListener("click", checkAnswer);
 button4.addEventListener("click", checkAnswer);
+beginButton.addEventListener("click", checkAnswer);

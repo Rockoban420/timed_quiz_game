@@ -1,0 +1,23 @@
+* {
+    font-family: sans-serif;
+}
+
+.firstButton {
+    margin-left: 46%;
+    font-size: 150%;
+}
+
+header {
+    display: flex;
+    justify-content: end;
+}
+
+h1 {
+    display: flex;
+    justify-content: center;
+}
+
+ul{
+    flex-direction: column;
+    margin-left: 40%;
+}
