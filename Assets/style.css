@@ -7,6 +7,11 @@
     font-size: 150%;
 }
 
+#announcer  {
+    font-size: 70%;
+    opacity: 70%;
+}
+
 header {
     display: flex;
     justify-content: end;
