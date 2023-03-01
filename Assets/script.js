@@ -1,7 +1,6 @@
 var timer = 60;
 var checkerTimer;
 var game = true;
-var score;
 var progress = -1;
 var timerEl = document.getElementById("timer");
 var questionBox = document.getElementById("q");
@@ -9,7 +8,14 @@ var button1 = document.getElementById("a1");
 var button2 = document.getElementById("a2");
 var button3 = document.getElementById("a3");
 var button4 = document.getElementById("a4");
+var highScoreTransporter = document.getElementById("highScoresButton");
 var checker = document.getElementById("announcer");
+var initialsInput = document.createElement("input");
+const submitButton = document.createElement("button");
+var hiScoreDisplay = document.createElement("p");
+var highScores = JSON.parse(localStorage.getItem('highScore')) ?? [{}];
+var scoreSet = false;
+
 const beginButton = document.getElementById("startButton");
 var ulEl = document.getElementById("list");
 ulEl.setAttribute("style", "display: none;");
@@ -103,12 +109,18 @@ function setTime() {
         button3.innerText = Questions[4].answer3;
         button4.innerText = Questions[4].answer4;
     }
-    // if (checkerTimer == checkerTimer+3){
-    //     checkAnswer.textContent = "";
+    // if (timer <= checkerTimer){
+    //     checker.textContent = "";
     // }
     if (game==false) {
-        score = timer;
-        questionBox.textContent = "game over";
+        checker.textContent = "";
+        questionBox.textContent = "Please enter your initials to save your score";
+        document.body.appendChild (initialsInput);
+        document.body.appendChild (submitButton);
+        initialsInput.setAttribute("style" ,"margin-left: 40%;");
+        submitButton.setAttribute("style" ,"margin-left: 40%;");
+        submitButton.textContent = "Submit";
+        submitButton.setAttribute("style", "display: ;")
         clearInterval(timerInterval);
         ulEl.setAttribute("style", "display: none;");
         timerEl.textContent = "";
@@ -132,6 +144,7 @@ function setTime() {
 };
 
 function checkAnswer (event){
+    // checkerTimer = timer+3;
     if (progress===-1){
         progress++;
         beginButton.setAttribute("style", "display: none;")
@@ -143,7 +156,6 @@ function checkAnswer (event){
             progress++;
             timer +=15;
             checker.textContent = "Correct!"
-            // checkerTimer = timer;
     }
         else{
             event.currentTarget.setAttribute("style","background-color: red;");
@@ -211,6 +223,39 @@ function checkAnswer (event){
 }
 };
 
+function showScores() {
+    ulEl.setAttribute("style", "display: none;");
+    questionBox.textContent = "High scores: ";
+    initialsInput.setAttribute ("style", "display: none;");
+    submitButton.setAttribute("style", "display: none;");
+    timerEl.textContent = "";
+    button1.innerText = "";
+    button2.innerText = "";
+    button3.innerText = "";
+    button4.innerText= "";
+    displayScores();
+}
+
+function displayScores(){
+    for (let i=1 ; i < highScores.length ; i++) {
+        const liEl = document.createElement("li");
+        liEl.textContent = 'Initials: ' + highScores[i].initials +' - Score: ' + highScores[i].score ;
+        document.body.append(liEl);
+    };
+}
+
+function pushScore() {
+    let obj = {
+        initials: initialsInput.value,
+        score: timer
+    }
+    highScores.push(obj);
+    localStorage.setItem('highScore', JSON.stringify(highScores));
+    scoreSet = true;
+    showScores();
+}
+
+
 setTime();
 
 button1.addEventListener("click", checkAnswer);
@@ -218,3 +263,5 @@ button2.addEventListener("click", checkAnswer);
 button3.addEventListener("click", checkAnswer);
 button4.addEventListener("click", checkAnswer);
 beginButton.addEventListener("click", checkAnswer);
+submitButton.addEventListener("click", pushScore);
+highScoreTransporter.addEventListener("click", showScores)
