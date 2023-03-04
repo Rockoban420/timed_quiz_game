@@ -171,7 +171,7 @@ function setTime() {
 
         if (!game) {
             checker.textContent = "";
-            questionBox.textContent = "Please enter your initials to save your score";
+            questionBox.textContent = "Your score is "+timer +" Please enter your initials to save it!";
             initialsInput.setAttribute(
                 "style",
                 "margin-left: 45%; padding: 0.2%; background-color: rgb(57, 14, 226); color:aliceblue;"
