@@ -48,7 +48,7 @@ const Questions = [
         answer2: "Sleeping Beauty",
         answer3: "Cinderella",
         answer4: "Elsa",
-        correctAnswer: "Sleeping Beauty",
+        correctAnswer: "Cinderella",
     },
     {
         question:
