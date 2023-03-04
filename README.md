@@ -5,4 +5,4 @@ Welcome to my time limited quiz game! I made this quiz with the goal of making a
 ![Screenshot](./Assets/ss.png)
 
 ## Usage
-Just click on the link and take a look! https://rockoban420.github.io/portfolio_lau/
+Just click on the link and take a look! https://rockoban420.github.io/timed_quiz_game/
